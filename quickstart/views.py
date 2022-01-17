@@ -8,6 +8,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.all_employees.all()
     serializer_class = EmployeeSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filterset_fields = ['name', 'designation']
 
 class ManagerViewSet(viewsets.ModelViewSet):
     queryset = Employee.managers.all()
@@ -19,3 +20,4 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filterset_fields = ['name']

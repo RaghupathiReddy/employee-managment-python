@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
 from quickstart.models import Project
 
@@ -22,6 +21,9 @@ class TestProjectViewSet(APITestCase):
         project = Project.objects.create(name='test', description="Test Set Up")
         self.project_detail = reverse("projects-detail", args=[project.pk])
         self.client.login(username=self.user.username, password=password)
+
+    def tearDown(self):
+        self.user.delete()
 
     def test_list(self):
         response = self.client.get(self.project_list)
@@ -44,3 +46,8 @@ class TestProjectViewSet(APITestCase):
     def test_destroy(self):
         response = self.client.delete(self.project_detail)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_filter(self):
+        payload = {"name": "Test Project 1"}
+        response = self.client.get(self.project_list, payload)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
