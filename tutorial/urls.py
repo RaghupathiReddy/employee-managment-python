@@ -20,11 +20,11 @@ from django.contrib import admin
 
 router = routers.DefaultRouter()
 router.register(r'employees', views.EmployeeViewSet, 'employees')
-router.register(r'projects', views.ProjectViewSet)
+router.register(r'projects', views.ProjectViewSet, 'projects')
 router.register(r'managers', views.ManagerViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include(router.urls), name="apis"),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
 ]
