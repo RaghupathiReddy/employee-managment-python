@@ -8,7 +8,7 @@ def get_unique_list(anagram_list, word):
 
 
 def is_anagrams(words):
-    anagrams_set = map(lambda word: ''.join(sorted(word)), words)
+    anagrams_set = map(lambda word: ''.join(sorted(word.lower())), words)
     if len(set(anagrams_set)) == 1:
         return True
     return False
